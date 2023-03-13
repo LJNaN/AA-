@@ -1,0 +1,61 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title">
+    <text>一共有</text>
+    <input class="containerInput" type="number" required="required" value="{{ memberCount }}" bindchange="inputChange">
+    </input>
+    <text>人</text>
+  </view>
+
+  <view class="title title2">
+    <text>一共有</text>
+    <text>人</text>
+  </view>
+
+  <view class="bg"></view>
+
+  <view class="project">
+    <view class="project-title">
+      <text>填写消费情况</text>
+      <view class="item-line"></view>
+    </view>
+
+    <view class="menu">
+      <view>
+        <text>项目名称</text>
+        <text>代号</text>
+        <text>金额</text>
+      </view>
+      <view></view>
+    </view>
+
+    <view class="scroll">
+      <view wx:for="{{ projectList }}" wx:key="*this" class="project-item">
+
+        <input class="projectInput2 text3" type="text" required="required" value="{{ projectList[index].name }}" bindchange="projectChange" data-index="{{index}}" data-type="project">
+        </input>
+
+        <input class="projectInput2 text2" type="text" required="required" value="{{ projectList[index].paidMemberId }}" bindchange="projectChange" data-index="{{index}}" data-type="member">
+        </input>
+
+        <input class="projectInput text4" type="number" required="required" value="{{ projectList[index].value }}" bindchange="projectChange" data-index="{{index}}" data-type="money">
+        </input>
+
+        <view class="jianContent" bindtap="jian" data-index="{{index}}">
+          <button class="jian">-</button>
+        </view>
+
+      </view>
+      <button class="jia" bindtap="jia">
+        <view>
+          +小伙伴
+        </view>
+      </button>
+    </view>
+
+  </view>
+
+  <!-- <button class="jiaProject" bindtap="jia">+新场次(小伙伴变动)</button> -->
+
+  <button class="but" bindtap="clickComputed">计算</button>
+</view>

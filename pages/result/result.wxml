@@ -1,0 +1,49 @@
+<view class="container">
+  <view class="title">
+    <text>一共消费</text>
+    <view class="containerInput">
+      <view class="input-num">
+        {{ sum }}
+      </view>
+    </view>
+    <text>元</text>
+  </view>
+
+  <view class="sub-title">
+    平均消费{{ avg }} 元
+  </view>
+
+  <view class="title title2">
+    <text>一共消费</text>
+    <text>元</text>
+  </view>
+
+  <view class="bg"></view>
+
+  <view class="project">
+    <view class="project-title">
+      <text>AA详情</text>
+      <view class="item-line"></view>
+    </view>
+
+
+    <view class="computed">
+      <view wx:for="{{ memberList }}" wx:key="*this">
+        <view wx:if="{{item.pai.length}}">
+          <view wx:for="{{item.pai}}" wx:for-item="item2" wx:key="*this">
+            <view wx:if="{{item2.value > 0}}" class="project-item">
+              <text class="projectInput2 text3">{{ item.id }}</text> 给 <text class="projectInput2 text2">{{ item2.target }}</text> <text class="projectInput2 text4">{{ item2.value }}</text>元
+            </view>
+
+            <view wx:else class="project-item">
+              <text class="projectInput2 text3">{{ item2.target }}</text> 给 <text class="projectInput2 text2">{{ item.id }}</text> <text class="projectInput2 text4">{{ -item2.value }}</text>元
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="but" bindtap="clickBack">返回</button>
+
+</view>
