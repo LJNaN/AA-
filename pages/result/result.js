@@ -4,13 +4,29 @@ Page({
     memberCount: 0,
     memberList: [],
     projectList: [],
-    nameComputed: [],
     sum: 0,
     avg: 0
   },
 
   clickBack() {
     wx.navigateBack()
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: "AA小助手",
+      path: '/pages/index/index',
+      imageUrl: '/assets/share.png'
+    }
+  },
+
+
+  onShareTimeline: function () {
+    return {
+      title: 'AA小助手',
+      path: '/pages/index/index',
+      imageUrl: '/assets/share.png'
+    }
   },
 
   onLoad(options) {
@@ -24,9 +40,26 @@ Page({
       e.value = Number(e.value)
     })
     projectList = projectList.filter(e => e.value > 0)
+    console.log(projectList);
+
+    // 合并相同人付款
+    const map = {}
+    projectList.forEach(e => {
+      if(!map[e.paidMemberId]) {
+        map[e.paidMemberId] = []
+      }
+      map[e.paidMemberId].push(e.value)
+    })
+    const computedList = []
+    for(let key in map) {
+      computedList.push({
+        paidMemberId: key,
+        value: map[key].reduce((a, b) => { return a + b })
+      })
+    }
 
     const memberList = []
-    const nameList = projectList.map(e => e.paidMemberId)
+    const nameList = computedList.map(e => e.paidMemberId)
     for (let i = 0; i < nameList.length; i++) {
       memberList.push({
         id: nameList[i],
@@ -44,13 +77,13 @@ Page({
       })
     }
 
-    const sumNum = Number(projectList.map(e => e.value).reduce((prev, cur) => {
+    const sumNum = Number(computedList.map(e => e.value).reduce((prev, cur) => {
       return prev + cur
     })).toFixed(0)
 
     const avgNum = Number(sumNum / memberCount).toFixed(2)
 
-    projectList.forEach(e => {
+    computedList.forEach(e => {
       const member = memberList.find(e2 => e2.id === e.paidMemberId)
       member.value = e.value
     })
@@ -70,7 +103,7 @@ Page({
       }
     })
 
-    projectList.forEach(e => {
+    computedList.forEach(e => {
       const member = memberList.find(e2 => e2.id === e.paidMemberId)
       if (member.id === firstPaidMember.id) return
       else {

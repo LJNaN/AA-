@@ -1,6 +1,6 @@
 <view class="container">
   <view class="title">
-    <text>一共消费</text>
+    <text>总共消费</text>
     <view class="containerInput">
       <view class="input-num">
         {{ sum }}
@@ -10,11 +10,11 @@
   </view>
 
   <view class="sub-title">
-    平均消费{{ avg }} 元
+    {{memberCount}}人平均{{ avg }} 元
   </view>
 
   <view class="title title2">
-    <text>一共消费</text>
+    <text>总共消费</text>
     <text>元</text>
   </view>
 

@@ -1,7 +1,6 @@
 
 
 .computed {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +58,7 @@
   min-height: 100vh;
   background-color: #FFFFFF;
   box-shadow: rgb(218, 218, 218) 0px 6px 5px;
-  transform: skewY(-2deg);
+  transform: matrix(1, -0.04, 0, 1, -0.04, 0);
   z-index: 0;
 }
 
@@ -92,7 +91,7 @@
 
 .project-item {
   position: relative;
-  width: 80vw;
+  width: 75vw;
   display: flex;
   justify-content: space-between;
   margin-bottom: 2vh;
@@ -144,7 +143,7 @@
 .title2 {
   color: #1ffb91;
   position: fixed;
-  top: 2.8%;
+  top: 2.6%;
   z-index: 2;
 }
 

@@ -2,6 +2,7 @@
 // 获取应用实例
 const app = getApp()
 
+
 Page({
   data: {
     memberCount: 4,
@@ -15,6 +16,17 @@ Page({
   },
 
   inputChange: function (e) {
+    if(e.detail.value <= 0 ){
+      wx.showModal({
+        title: '?',
+        content: '?',
+        showCancel: false
+      })
+      this.setData({
+        memberCount: 1
+      })
+      return
+    }
     this.setData({
       memberCount: e.detail.value
     })
@@ -24,11 +36,11 @@ Page({
     const type = e.currentTarget.dataset.type
     const index = e.currentTarget.dataset.index
     const temp = JSON.parse(JSON.stringify(this.data.projectList))
-    let target = e.detail.value
+    let target = e.detail.value.replace(" ", "")
 
-  
+
     if (type === 'money') {
-      if(target < 0) {
+      if (target < 0) {
         temp[index].value = 0
         this.setData({
           projectList: temp
@@ -57,7 +69,7 @@ Page({
     const temp = JSON.parse(JSON.stringify(this.data.projectList))
     const last = temp[temp.length - 1]
     let newId = last.id + 1
-    if(newId > this.data.memberCount) {
+    if (newId > this.data.memberCount) {
       newId = this.data.memberCount
     }
     temp.push({
@@ -72,7 +84,7 @@ Page({
   },
 
   jian: function (e) {
-    if(this.data.projectList.length - 1 === 0) {
+    if (this.data.projectList.length - 1 === 0) {
       wx.showModal({
         title: '提示',
         content: '必须要有一个项目哦',
@@ -86,6 +98,23 @@ Page({
     this.setData({
       projectList: temp
     })
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: "AA小助手",
+      path: '/pages/index/index',
+      imageUrl: '/assets/share.png'
+    }
+  },
+
+
+  onShareTimeline: function () {
+    return {
+      title: 'AA小助手',
+      path: '/pages/index/index',
+      imageUrl: '/assets/share.png'
+    }
   },
 
   onLoad() {
